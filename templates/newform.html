@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Sansita+Swashed:wght@600&display=swap");
+    @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
+
+    body {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: linear-gradient(45deg, greenyellow, dodgerblue);
+      font-family: 'Roboto', sans-serif;
+    }
+    
+    .center {
+      position: relative;
+      padding: 50px 50px;
+      background: #fff;
+      border-radius: 10px;
+    }
+
+    .center h1 {
+      font-size: 2em;
+      border-left: 5px solid dodgerblue;
+      padding: 10px;
+      color: #000;
+      letter-spacing: 5px;
+      margin-bottom: 60px;
+      font-weight: bold;
+      padding-left: 10px;
+    }
+    .center1{
+      padding-left: 50px;
+
+    }
+    .center .inputbox {
+      position: relative;
+      width: 300px;
+      height: 50px;
+      margin-bottom: 50px;
+    }
+
+    .center .inputbox input {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      border: 2px solid #000;
+      outline: none;
+      background: none;
+      padding: 10px;
+      border-radius: 10px;
+      font-size: 1.2em;
+    }
+
+    .center .inputbox:last-child {
+      margin-bottom: 0;
+    }
+
+    .center .inputbox span {
+      position: absolute;
+      top: 14px;
+      left: 20px;
+      font-size: 1em;
+      transition: 0.6s;
+      font-family: sans-serif;
+    }
+
+    .center .inputbox input:focus~span,
+    .center .inputbox input:valid~span {
+      transform: translateX(-13px) translateY(-35px);
+      font-size: 1em;
+    }
+
+    .center .inputbox [type="button"] {
+      width: 50%;
+      background: dodgerblue;
+      color: #fff;
+      border: #fff;
+    }
+
+    .center .inputbox:hover [type="button"] {
+      background: linear-gradient(45deg, greenyellow, dodgerblue);
+    }
+  </style>
+
+</head>
+
+<body
+  style="background:url('https://cdn.vectorstock.com/i/1000x1000/92/92/fruit-and-berry-background-abstract-food-seamless-vector-28369292.webp')">
+ 
+  <div class="center">
+    <h1>Enter Your Details</h1>
+    <div style="height:40vh ; overflow-x: scroll;">
+      {%for x in data%}
+      <form action="dietChart" method='post'>
+        {% csrf_token %}
+        <div class="inputbox">
+          <input type="text" name='name' id='name' required="required" value={{x.name}}>
+          <span>Enter Your name</span>
+        </div>
+        <div class="inputbox">
+          <input type="text" name='age' id='age' required="required" value={{x.age}}>
+          <span>Enter your age</span>
+        </div>
+        <div class="inputbox">
+          <input type="text" name='weight' id='weight' required="required" value={{x.weight}}>
+          <span>Enter your weight</span>
+        </div>
+        <div class="inputbox">
+          <input type="text" name='height' id='height' required="required" value={{x.height}}>
+          <span> Enter your Height</span>
+        </div>
+         <div> 
+          <b>
+          Enter Your Gender 
+            <p><input type="radio" id ="male" value = "Male" name="gender">
+            <label for = "male">Male</label>
+            <input type="radio" id = "female" value = "Female" name="gender">
+            <label for = "female">Female</label>
+            </p>
+            </b>
+         </div> 
+         <b>
+         I want to?
+         <select id="LossGain" name="LossGain" value={{x.lmg}}>
+             <option value="Lose Weight">Lose Weight</option>
+             <option value="Maintain Weight">Maintain Weight</option>
+             <option value="Gain weight">Gain Weight</option>
+           </select><br><br>
+          </b>
+        <div class="inputbox">
+          <input type="text" name='goal' id='goal' value="{{x.goal}}" required="required">
+          <span>Your Goal Weight</span>
+        </div>
+        <b>
+        How active are you?
+        <select id="active" name="active" value={{x.active}}>
+            <option value="Lose Weight">Not Very Active(No Exercise)</option>
+            <option value="Maintain Weight">Lightly active(Light Exercise)</option>
+            <option value="Gain weight">Active(Moderate Exercise)</option>
+            <option value="Gain weight">Very Active(Hard Exercise)</option>
+          </select><br><br>
+        </b>
+        <div class="inputbox">
+          <button type="submit" class="btn btn-success" >Check your Nutrition goal</button>
+        </div>
+      </form>
+      {%endfor%}
+    </div>
+  </div>
+  <div class="center1" style="background-color:#fff" >
+  
+  {%if count%}
+  <h3>Daily Nutrition goals</h3>
+  <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Protien</th>
+          <th scope="col">Carb</th>
+          <th scope="col">Fat</th>
+        </tr>
+      </thead>
+      <tbody>
+          {%for x in data%}
+        <tr>
+          <td>{{x.protien}}</td>
+          <td>{{x.carbs}}</td>
+          <td>{{x.fat}}</td>
+       
+        </tr>
+        {%endfor%}
+      </tbody>
+    </table>
+    {%if a%}
+    <form method="post" action="diets">{% csrf_token %}
+      <button type="submit">Get Your Diet for {{lmg1}}</button>
+   {%else %}
+   <form method="post" action="diets1">{% csrf_token %}
+      <button type="submit">Get Your Diet for {{lmg1}}</button>
+      {%endif%}
+  {%endif%}
+   
+   </div>
+</body>
+
+</html>

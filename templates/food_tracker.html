@@ -1,0 +1,114 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        <style>
+          {% comment %} .corner{
+              position: fixed;
+              top: 0;
+              left: 0;
+              
+          } {% endcomment %}
+          input[type=text] {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            box-sizing: border-box;
+          }
+          
+            div.scroll {
+                background-color: #fed9ff;
+                width: 100%;
+                height: 100%;
+                overflow-x: hidden;
+                overflow-y: auto;
+                text-align: center;
+                padding: 20px;
+              }
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width:800px
+          }
+          
+          td,
+          th {
+            text-align: left;
+            padding: 8px;
+          }
+          
+          tr:nth-child(even) {
+            background-color: #ddd;
+          }
+          
+          
+          /* The scrollable part */
+          
+          .scrollable {
+            text-align: center;
+            height: 300px;
+            width: 800px;
+            overflow-y: scroll;
+            border-bottom: 1px solid #ddd;
+          }
+          
+          th {
+            position: sticky;
+            background-color: white;
+            z-index: 2;
+            top: 0;
+          }
+        </style>
+</style>
+</head>
+<body style="background:url(https://media.istockphoto.com/id/165742574/vector/pizza-background.jpg?s=2048x2048&w=is&k=20&c=dO1ps8dxN43SwWpvQjSP-ov-hZhDOgaoubtfIWjuWDM=)">
+    <center>
+    <h1>Food Tracker</h1>
+    </center><br><center>
+    {%for x in records1%}
+    <b><div style="position:relative; left:550px" >Required Protien<input type="text" value={{dif}} disabled="disabled"></div></b>
+    <b><div style="position:relative; left:550px" >Required Fat     <input type="text" value={{dif1}} disabled="disabled"></div></b>
+    <b><div style="position:relative; left:550px" >Required Carbs<input type="text" value={{dif2}} disabled="disabled"></div></b>
+    {%endfor%}
+    <form method="post" action="foodTrack">{% csrf_token %}
+       <b> <label for="food"> Search For Food:</label><input type="text" id="food" name="food"></b>
+        <button type="submit" style="background-color:orange">ADD</button>
+    </form>
+    <br>
+</center>
+<center>
+    <div style="background-color:white" class="scrollable">
+       
+        <table id="myTable">
+          <tr>
+            <th>Foods</th>
+            <th>Carbs</th>
+            <th>Fats</th>
+            <th>Protien</th>
+          </tr>
+          {%for x in records%}
+          <tr>
+            <td>{{x.Foods}}</td>
+            <td>{{x.Carbs}}</td>
+            <td>{{x.Fat}}</td>
+            <td>{{x.Protien}}</td>
+          </tr>
+          {%endfor%}
+        </table>
+       
+    
+      </div><br>
+    </center>
+    </center>
+<center>
+  <b>Total Protien Intake:<input type="text" disabled="disabled" value={{P}}><br> </b>
+  <b>Total Fat Intake:<input type="text" disabled="disabled" value={{F}}><br> </b>
+  <b>Total Carbs Intake:<input type="text" disabled="disabled" value={{C}}><br> </b>
+</center>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Diet Chart</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body  style="background:url('https://cdn.vectorstock.com/i/1000x1000/92/92/fruit-and-berry-background-abstract-food-seamless-vector-28369292.webp')">
+
+<div class="container">
+  <b><h2>Diet Plan From Monday To Saturday</h2></b>
+             
+  <table style="background-color:white" class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Day</th>
+        <th>BreakFast</th>
+        <th>Lunch</th>
+        <th>Snacks</th>
+        <th>Dinner</th>
+      </tr>
+    </thead>
+    <tbody>
+        {%for x in data%}
+      <tr>
+        <td>{{x.Days}}</td>
+        <td>{{x.Breakfast}}</td>
+        <td>{{x.Lunch}}</td>
+        <td>{{x.Snacks}}</td>
+        <td>{{x.Dinner}}</td>
+      </tr>
+      {%endfor%}
+    </tbody>
+  </table>
+</div>
+
+</body>
+</html>
